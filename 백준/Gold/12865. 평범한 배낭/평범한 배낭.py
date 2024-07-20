@@ -1,12 +1,10 @@
 n,k = map(int,input().split())
-box = []
+box = [list(map(int,input().split())) for _ in range(n)]
+box.sort()
 dp = [0] * (k+1)
-for _ in range(n):
-    w,v = map(int,input().split())
-    box.append((w,v))
 
-for w,v in box:
-    for i in range(k,w-1,-1):
-        dp[i] = max(dp[i], v + dp[i-w])
+for i in range(n):
+    for j in range(k,box[i][0]-1,-1):
+        dp[j] = max(dp[j], dp[j-box[i][0]] + box[i][1])
 
 print(max(dp))
