@@ -1,31 +1,26 @@
 import sys
 input = sys.stdin.readline
-sys.setrecursionlimit(65536)
+sys.setrecursionlimit(10**9)
+
 n = int(input())
-child = [[] for _ in range(n+1)]
+tree = [[] for _ in range(n+1)]
+dist = [-1] * (n+1)
+dist[1] = 0
+
 for _ in range(n-1):
     a,b,c = map(int,input().split())
-    child[a].append((b,c))
-    
-ans = 0
-def DFS(root):
-    global ans
-    if len(child[root]) == 0:
-        return 0
-    tot = []
-    for a,b in child[root]:
-        tot.append(b + DFS(a))
-    
-    if len(tot) == 1:
-        ans = max(ans,tot[0])
-    else:
-        for i in range(len(tot)):
-            for j in range(i+1,len(tot)):
-                ans = max(ans,tot[i] + tot[j])
-    
-    return max(tot)
+    tree[a].append((b,c))
+    tree[b].append((a,c))
 
-DFS(1)
-print(ans)
-
+def DFS(s,w):
+    for a,b in tree[s]:
+        if dist[a] == -1:
+            dist[a] = w + b
+            DFS(a, w + b)
     
+DFS(1,0)
+mx = dist.index(max(dist))
+dist = [-1] * (n+1)
+dist[mx] = 0
+DFS(mx,0)
+print(max(dist))
