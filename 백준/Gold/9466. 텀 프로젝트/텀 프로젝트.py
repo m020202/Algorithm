@@ -5,19 +5,17 @@ t = int(input())
 
 def checking(s,stack):
     global ans
-    if ch[s] == 1 and s in stack:
-        cur = stack.index(s)
-        ans -= (len(stack)-cur)
-            
-    elif ch[s] == 0:
+    if ch[s] == 1:
+        if s in stack:
+            ans -= (len(stack)-stack.index(s))
+    else:
         ch[s] = 1
         stack.append(s)
         return checking(box[s],stack)
 
 for _ in range(t):
     n = int(input())
-    box = list(map(int,input().split()))
-    box.insert(0,0)
+    box = [0] + list(map(int,input().split()))
     ch = [0] * (n+1)
     ans = n
     for i in range(1,n+1):
