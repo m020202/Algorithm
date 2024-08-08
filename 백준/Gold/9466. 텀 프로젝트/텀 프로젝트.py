@@ -1,9 +1,9 @@
 import sys
 input = sys.stdin.readline
-sys.setrecursionlimit(65536)
+sys.setrecursionlimit(111111)
 t = int(input())
 
-def checking(s,stack):
+def checking(s):
     global ans
     if ch[s] == 1:
         if s in stack:
@@ -11,7 +11,7 @@ def checking(s,stack):
     else:
         ch[s] = 1
         stack.append(s)
-        return checking(box[s],stack)
+        return checking(box[s])
 
 for _ in range(t):
     n = int(input())
@@ -21,6 +21,7 @@ for _ in range(t):
     for i in range(1,n+1):
         if ch[i] == 0:
             ch[i] = 1
-            checking(box[i],[i])
+            stack = [i]
+            checking(box[i])
 
     print(ans)
