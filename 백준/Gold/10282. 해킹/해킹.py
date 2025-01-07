@@ -1,5 +1,6 @@
 import heapq
-
+from sys import stdin
+input = stdin.readline
 t = int(input())
 for _ in range(t):
     n,d,c = map(int,input().split())
