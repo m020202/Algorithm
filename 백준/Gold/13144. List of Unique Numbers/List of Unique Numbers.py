@@ -4,7 +4,7 @@ st = 0
 en = 0
 ch = [0] * 100001
 ans = 0
-while st <= en and en < n:
+while en < n:
     if ch[box[en]] == 0:
         ch[box[en]] = 1
         en += 1
