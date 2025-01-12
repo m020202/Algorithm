@@ -5,27 +5,23 @@ box = [int(input()) for _ in range(n)]
 
 ans = 0
 ch = [0] * 3001
-visited = [0] * n
+a = box[:k] + [c]
+for i in a:
+    ch[i] += 1
+tot = len(set(a))
 
-lt = 0
-rt = k - 1
-while visited[lt] == 0:
-    # lt = 0일 때
-    if (lt == 0):
-        a = box[lt:rt + 1] + [c]
-        for i in a:
-            ch[i] += 1
-        s = set(a)
-        ans = len(s)
-    visited[lt] = 1
-    ch[box[lt]] -= 1
-    if ch[box[lt]] == 0:
-        s.remove(box[lt])
-    lt = (lt + 1 + n) % n
-    rt = (rt + 1 + n) % n
-    ch[box[rt]] += 1
-    s.add(box[rt])
-    ans = max(ans, len(s))
+ans = tot
+for i in range(1, n):
+    ch[box[i-1]] -= 1
+    if (ch[box[i-1]] == 0):
+        tot -= 1
+    rt = (i + k - 1 + n) % n
+    if (ch[box[rt]] == 0):
+        ch[box[rt]] = 1
+        tot += 1
+    else:
+        ch[box[rt]] += 1
+    ans = max(ans, tot)
 
 print(ans)
 
