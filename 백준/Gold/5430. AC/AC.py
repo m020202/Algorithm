@@ -29,17 +29,8 @@ for _ in range(t):
                 dq.pop()
 
     if tmp:
-        print('[', end='')
-        if curDir == 0:
-            for i in range(len(dq)):
-                if i == len(dq) - 1:
-                    print(dq[i], end='')
-                else:
-                    print(str(dq[i]) + ',', end='')
-        else:
-            for i in range(len(dq) - 1, -1, -1):
-                if i == 0:
-                    print(dq[i], end='')
-                else:
-                    print(str(dq[i]) + ',', end='')
-        print(']')
+        if curDir == 1:
+            dq.reverse()
+
+        result = ','.join(map(str,dq))
+        print('[' + result + ']')
