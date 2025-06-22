@@ -1,55 +1,45 @@
 import sys
 from collections import deque
-input = sys.stdin.readline
 t = int(input())
+
 for _ in range(t):
-    box = list(map(str,input()))
-    box.pop()
-    dQ = deque(box)
+    # 입력 받기
+    p = input()
     n = int(input())
+    arr = input()[1:-1]
 
-    k = input()
-    if len(k) == 3:
-        ac = deque()
+    # 배열이 빈 값일 경우
+    if n == 0:
+        dq = deque([])
     else:
-        ac = deque(list(k[1:-2].split(',')))
-
-    tmp = 0
-    # 0: 왼 -> 오, 1: 오 -> 왼
-    dir = 0
-    while dQ:
-        cur = dQ.popleft()
-        # R -> 순서 뒤집기
-        if cur == 'R':
-            if dir == 0:
-                dir = 1
-            else:
-                dir = 0
-        # D -> 맨 앞 원소 버리기
+        dq = deque(list(map(int,arr.split(","))))
+    tmp = True
+    curDir = 0 # 진행 방향, 0->왼쪽부터, 1->오른쪽부터
+    for i in p:
+        if i == 'R':
+            curDir = 1-curDir
         else:
-            if len(ac) == 0:
-                tmp = 1
+            if len(dq) == 0:
+                print('error')
+                tmp = False
                 break
-            if dir == 0:
-                ac.popleft()
+            if curDir == 0:
+                dq.popleft()
             else:
-                ac.pop()
+                dq.pop()
 
-    if not tmp:
-        print("[",end='')
-        if dir == 0:
-            for i in range(len(ac)):
-                if i == len(ac)-1:
-                    print(str(ac[i]),end='')
+    if tmp:
+        print('[', end='')
+        if curDir == 0:
+            for i in range(len(dq)):
+                if i == len(dq) - 1:
+                    print(dq[i], end='')
                 else:
-                    print(str(ac[i])+',', end='')
-        if dir == 1:
-            for i in range(len(ac)-1,-1,-1):
+                    print(str(dq[i]) + ',', end='')
+        else:
+            for i in range(len(dq) - 1, -1, -1):
                 if i == 0:
-                    print(str(ac[i]),end='')
+                    print(dq[i], end='')
                 else:
-                    print(str(ac[i])+',',end='')
-        print("]")
-    else:
-        print("error")
-
+                    print(str(dq[i]) + ',', end='')
+        print(']')
