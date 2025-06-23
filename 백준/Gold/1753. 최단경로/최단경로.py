@@ -19,8 +19,8 @@ heap = []
 heapq.heappush(heap,(0,k))
 while heap:
     curW, curV = heapq.heappop(heap)
-    if ans[curV] < curW:
-        continue
+    # if ans[curV] < curW:
+    #     continue
     for v,w in dic[curV]:
         if ans[v] > w + ans[curV]:
             ans[v] = w + ans[curV]
