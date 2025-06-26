@@ -1,21 +1,20 @@
+import sys
+input = sys.stdin.readline
 n,s = map(int,input().split())
 box = list(map(int,input().split()))
-
-lt = 0
-rt = 0
-tot = box[lt]
+l = 0
+r = 1
 ans = n+1
+cur = box[0]
 while True:
-    if tot >= s:
-        ans = min(ans,rt-lt+1)
-        tot -= box[lt]
-        lt += 1
+    if cur >= s:
+        ans = min(ans, r - l)
+        cur -= box[l]
+        l += 1
+    elif r == n:
+        break
     else:
-        if rt == n-1:
-            break
-        rt += 1
-        tot += box[rt]
-if ans == n+1:
-    print(0)
-else:
-    print(ans)
+        cur += box[r]
+        r += 1
+
+print(0 if ans == n+1 else ans)
