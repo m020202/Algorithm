@@ -1,30 +1,29 @@
-import heapq
+import sys, heapq
+input = sys.stdin.readline
 v,e = map(int,input().split())
-g = [[] for _ in range(v+1)]
+box = {}
+for i in range(1,v+1):
+    box[i] = []
 for _ in range(e):
     a,b,c = map(int,input().split())
-    g[a].append((b,c))
-    g[b].append((a,c))
+    box[a].append((b,c))
+    box[b].append((a,c))
 
 ch = [0] * (v+1)
-ans = 0
-heap = []
-
-# v 하나 Tree vertex로 올리기
-cur = 1
 ch[1] = 1
-# fringe 추가
-for i in g[1]:
-    heapq.heappush(heap,(i[1],i[0]))
+heap = []
+# 1부터 시작.
+for i,j in box[1]:
+    heapq.heappush(heap,(j,i))
 
-while len(heap) > 0:
-    weight, cur = heapq.heappop(heap)
+ans = 0
+while heap:
+    weight,cur = heapq.heappop(heap)
     if ch[cur] == 1:
         continue
     ch[cur] = 1
     ans += weight
-    # 선정된 Tree vertex의 fringe 추가
-    for i in g[cur]:
-        heapq.heappush(heap,(i[1],i[0]))
+    for i,j in box[cur]:
+        heapq.heappush(heap,(j,i))
 
 print(ans)
