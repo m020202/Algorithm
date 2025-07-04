@@ -36,11 +36,9 @@ def choose(chosen, num, idx):
         return
 
     for i in range(idx+1, len(chicken)):
-        chosen.add(chicken[i])
-        choose(chosen, num+1, i)
-        chosen.remove(chicken[i])
+        choose(chosen + [chicken[i]], num+1, i)
 
-choose(set(),0,-1)
+choose([],0,-1)
 print(ans)
 
 
