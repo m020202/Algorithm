@@ -2,21 +2,25 @@ import sys
 input = sys.stdin.readline
 INF = sys.maxsize
 n,m = map(int,input().split())
-edges = [list(map(int,input().split())) for _ in range(m)]
+edges = {i : [] for i in range(1, n+1)}
+for _ in range(m):
+    a,b,c = map(int,input().split())
+    edges[a].append((b,c))
 distance = [INF] * (n+1)
 
-def bf(start):
-    distance[start] = 0
-    for i in range(n):
-        for a,b,c in edges:
-            if distance[a] != INF and distance[b] > distance[a] + c:
-                distance[b] = distance[a] + c
-                if i == n-1:
-                    return True
-    return False
+distance[1] = 0
+result = True
+for i in range(n-1):
+    for cur in edges:
+        for next,w in edges[cur]:
+            if distance[cur] != INF and distance[next] > distance[cur] + w:
+                distance[next] = distance[cur] + w
+for cur in edges:
+    for next, w in edges[cur]:
+        if distance[cur] != INF and distance[next] > distance[cur] + w:
+            result = False
 
-result = bf(1)
 if result:
-    print("-1")
+    print(*(distance[i] if distance[i] != INF else -1 for i in range(2,n+1)),sep='\n')
 else:
-    print(*(-1 if distance[i] == INF else distance[i] for i in range(2, n + 1)), sep='\n')
+    print(-1)
