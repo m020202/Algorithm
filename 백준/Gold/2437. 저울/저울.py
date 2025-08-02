@@ -4,9 +4,9 @@ n = int(input())
 box = list(map(int, input().split()))
 box.sort()
 
-cur = 1
+rt = 0
 for i in box:
-    if cur < i:
+    if rt + 1 < i:
         break
-    cur += i
-print(cur)
+    rt += i
+print(rt+1)
