@@ -1,13 +1,12 @@
 import sys
 input = sys.stdin.readline
 n = int(input())
-arr = list(map(int, input().split()))
-arr.sort()
+box = list(map(int, input().split()))
+box.sort()
 
-target = 1
-for num in arr:
-    if target < num:
+cur = 1
+for i in box:
+    if cur < i:
         break
-    target += num
-
-print(target)
+    cur += i
+print(cur)
