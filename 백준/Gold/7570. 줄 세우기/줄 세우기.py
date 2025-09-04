@@ -1,35 +1,11 @@
-# n = int(input())
-# box = list(map(int,input().split()))
+import sys
+input = sys.stdin.readline
+N = int(input())
+arr = list(map(int,input().split()))
+dp = [0]*(N+1)
+dp[arr[0]] = 1
+for i in range(1,N):
+    cur = arr[i]
+    dp[cur] += (dp[cur-1]+1)
 
-# tot = 1
-# ans = 1
-# for i in range(n-1):
-#     if box[i] < box[i+1]:
-#         tot += 1
-#         ans = max(ans,tot)
-#     else:
-#         tot = 1
-
-
-# print(n - ans)
-n = int(input())
-box = list(map(int,input().split()))
-box.insert(0,0)
-
-res = [0 for _ in range(n+1)]
-for i in range(1,n+1):
-    res[box[i]] = i
-
-cnt = 1
-max_len = -1
-
-for i in range(1,n):
-    if (res[i] < res[i+1]):
-        cnt += 1
-
-        if cnt > max_len:
-            max_len = cnt
-    else:
-        cnt = 1
-
-print(n-max_len if max_len != -1 else 0)
+print(N-max(dp))
