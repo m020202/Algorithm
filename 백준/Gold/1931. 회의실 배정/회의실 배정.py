@@ -1,19 +1,17 @@
-import sys
+import heapq,sys
 input = sys.stdin.readline
-sys.setrecursionlimit(100000+10)
+N = int(input())
+box = [list(map(int,input().split())) for _ in range(N)]
+heap = []
+for i,j in box:
+    heapq.heappush(heap, (j,i))
 
-n = int(input())
-box = [tuple(map(int,input().split())) for _ in range(n)]
-box.sort(key= lambda x : (x[1],x[0]))
-ans = 0
+cnt = 0
+last = 0
+while heap:
+    j,i = heapq.heappop(heap)
+    if i >= last:
+        last = j
+        cnt += 1
 
-def func(idx, cur):
-    global ans
-    for i in range(idx+1,n):
-        if box[i][0] >= box[idx][1]:
-            return func(i, cur+1)
-    else:
-        ans = max(ans, cur)
-
-func(0,1)
-print(ans)
+print(cnt)
