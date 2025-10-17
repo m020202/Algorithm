@@ -9,39 +9,20 @@ for _ in range(n):
     C.append(c)
     D.append(d)
 
-A_B = []
 a_b = {}
 for i in range(n):
     for j in range(n):
         num = A[i] + B[j]
-        A_B.append(num)
-A_B.sort()
-
-c_d = {}
-for i in range(n):
-    for j in range(n):
-        num = C[i] + D[j]
-        if num in c_d:
-            c_d[num] += 1
+        if num in a_b:
+            a_b[num] += 1
         else:
-            c_d[num] = 1
-
-def searching(num):
-    lt = 0
-    rt = len(C_D)
-    while lt <= rt:
-        mid = (lt+rt)//2
-        if C_D[mid] < num:
-            lt = mid + 1
-        elif C_D[mid] > num:
-            rt = mid - 1
-        else:
-            return c_d[C_D[mid]]
-    return 0
+            a_b[num] = 1
 
 ans = 0
-for i in A_B:
-    if -i in c_d:
-        ans += c_d[-i]
+for i in range(n):
+    for j in range(n):
+        cur = C[i] + D[j]
+        if -cur in a_b:
+            ans += a_b[-cur]
 
 print(ans)
